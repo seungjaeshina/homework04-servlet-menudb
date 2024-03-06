@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- MenuMapper Interface와 MenuMapper.xml 설정파일 연동
+1. DAO 인터페이스와 동일한 패키지에 위치해야 한다.
+2. DAO 인터페이스의 풀네임을 namespace로 지정해야 한다.
+3. DAO 인터페이스와 XML의 이름이 동일해야 한다.
+4. 작성한 메소드의 이름과 id가 일치하고, 리턴 타입이 일치하는 쿼리문을 모두 작성해야 한다.
+-->
+<mapper namespace="com.ohgiraffers.mvc.tblMenu.model.dao.MenuMapper">
+
+    <select id="selectOneMenuByCode" resultType="com.ohgiraffers.mvc.tblMenu.model.dto.MenuDTO" >
+        SELECT
+            menu_code,
+            menu_name,
+            menu_price,
+            category_code,
+            orderable_status
+        FROM
+            tbl_menu
+        WHERE
+            menu_code = #{ menuCode }
+    </select>
+
+<select id="selectAllMenu" resultType="com.ohgiraffers.mvc.tblMenu.model.dto.MenuDTO" >
+    SELECT
+        menu_code,
+        menu_name,
+        menu_price,
+        category_code,
+        orderable_status
+    FROM
+    tbl_menu
+    WHERE
+    orderable_status = 'Y'
+
+
+</select>
+    <insert id="insertMenu">
+        INSERT
+        INTO tbl_menu
+        (
+        menu_name,
+        menu_price,
+        category_code,
+        orderable_status
+        )
+        VALUES
+        (
+        #{ menuName },
+        #{ menuPrice },
+        #{ categoryCode },
+        'Y','N'
+        )
+    </insert>
+    
+    <update id="updateMenu">
+        UPDATE
+            tbl_menu
+        SET
+            menu_name = #{ menuName }
+        WHERE
+            menu_code = #{ menuCode }
+
+
+    </update>
+    <delete id="deleteMenu">
+        DELETE
+        FROM
+        tbl_menu
+        WHERE
+        menu_code = #{ menuCode }
+
+
+    </delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
